@@ -42,12 +42,12 @@ export default class ChangePassword extends Component {
     if (this.validateForm())  {
   console.log(`${userObject.userID} ${userObject.passwordHistory.oldpwd} ${userObject.passwordHistory.pwd1} `)
   
- Axios.post('http://10.150.176.60:8015/api/change',userObject)
+ Axios.post('http://10.150.124.36:8015/api/change',userObject)
     .then(
        res=>{
         console.log(res.data)
       
-        if(res.data==="Password changed successfully"){
+      if(res.data==="Password changed successfully"){
             alert("password changed successfully")
             //window.location.assign('http://10.150.121.200:8014/Welcome');
             }
