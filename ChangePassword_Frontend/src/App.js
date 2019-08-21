@@ -16,8 +16,8 @@ class App extends Component {
 
   componentDidMount()
   {
-      Axios.get('https://jsonplaceholder.typicode.com/posts')
-      .then(res=> this.setState({userData: res.data})) 
+    //  Axios.get('https://jsonplaceholder.typicode.com/posts')
+     // .then(res=> this.setState({userData: res.data})) 
       // this.setState({userData: res.data})
       //console.log(res.data)
   }

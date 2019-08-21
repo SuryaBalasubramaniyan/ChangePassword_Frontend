@@ -12,6 +12,7 @@ export default class ChangePassword extends Component {
     super();
     this.state={
       userID : "",
+      passwordHistory:"",
       hpassword: "",
       oldPassword: "",
       confirmPassword: "",
@@ -32,34 +33,48 @@ export default class ChangePassword extends Component {
   onSubmit(e) {
     e.preventDefault();
     const userObject={
-      userID : "1",
+      userID : "41",
+      passwordHistory:{
      oldpwd:this.state.fields.oldPassword,
-     hashedpwd: this.state.fields.hpassword
-    }
+     pwd1: this.state.fields.hpassword
+      }}
+    
     if (this.validateForm())  {
+  console.log(`${userObject.userID} ${userObject.passwordHistory.oldpwd} ${userObject.passwordHistory.pwd1} `)
   
-  
-/*Axios.post('http://10.150.176.115:8093/api/change',userObject)
-    .then(res=>console.log(res.data
-   ))
+ Axios.post('http://10.150.176.60:8015/api/change',userObject)
+    .then(
+       res=>{
+        console.log(res.data)
+      
+        if(res.data==="Password changed successfully"){
+            alert("password changed successfully")
+            //window.location.assign('http://10.150.121.200:8014/Welcome');
+            }
+          else if(res.data==="Please enter correct password"){
+            alert("please enter correct password")
+              //this.props.history.push('/ChangePassword');
+            }
+           } )  
+
    let fields = {};
    fields["oldPassword"]="";
    fields["hpassword"] = "";
    this.setState({fields:fields});
-  alert("Form submitted");
-    }*/
-    let fields = {};
-   fields["oldPassword"]="";
-   fields["hpassword"] = "";
-   this.setState({fields:fields});
-  console.log("password changed successfully") 
+  
+    
+  
+  //console.log("password changed successfully") 
+  //this.props.history.push('/');
+  
+ 
   }
   }
+
 
 
   eventhandler(e){
-    //console.log(this.state);
-    //this.setState({[e.target.name] : e.target.value})
+    
     let fields = this.state.fields;
        fields[e.target.name] = e.target.value;
        this.setState({
@@ -94,7 +109,6 @@ export default class ChangePassword extends Component {
   
     
    
-   
   
     if (typeof fields["hpassword"] !== "undefined") {
       if (!fields["hpassword"].match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
@@ -104,8 +118,6 @@ export default class ChangePassword extends Component {
     }
 
    
-
-    
 
     if(typeof fields["confirmPassword"]!== "undefined"){
       if(fields["hpassword"]!== fields["confirmPassword"]){
@@ -159,7 +171,10 @@ export default class ChangePassword extends Component {
             <div className="errorMsg">{this.state.errors.confirmPassword}</div>
             <br/>
             <br/>
-          <button  type="submit" onClick= {this.onSubmit} >Change Password</button>  
+           
+            <button  type="submit" onClick= {this.onSubmit} >Change Password</button> 
+          
+         
           <br/>
           <button  onClick={this.clear} >Reset</button>
         </div>  
@@ -169,3 +184,4 @@ export default class ChangePassword extends Component {
     )
   }
 }
+
