@@ -1,7 +1,7 @@
 import React, { Component } from "react";
    // import Form from 'react-bootstrap/Form'
     //import Button from 'react-bootstrap/Button'
-
+    
 import Axios from 'axios';
 import '../App.css';
     //import {Container,Row,Col} from "react-bootstrap";
@@ -12,7 +12,7 @@ export default class ChangePassword extends Component {
     super();
     this.state={
       userID : "",
-      passwordHistory:"",
+      password:"",
       hpassword: "",
       oldPassword: "",
       confirmPassword: "",
@@ -33,39 +33,54 @@ export default class ChangePassword extends Component {
   onSubmit(e) {
     e.preventDefault();
     const userObject={
-      userID : "41",
-      passwordHistory:{
-     oldpwd:this.state.fields.oldPassword,
-     pwd1: this.state.fields.hpassword
+      userID : "8",
+      password:{
+        pwd1:this.state.fields.oldPassword,
+        pwd2: this.state.fields.hpassword
       }}
     
     if (this.validateForm())  {
-  console.log(`${userObject.userID} ${userObject.passwordHistory.oldpwd} ${userObject.passwordHistory.pwd1} `)
+ // console.log(`${userObject.userID} ${userObject.passwordHistory.oldpwd} ${userObject.passwordHistory.pwd1} `)
   
- Axios.post('http://10.150.124.36:8015/api/change',userObject)
+ Axios.post('http://localhost:8015/api/change',userObject)
     .then(
        res=>{
         console.log(res.data)
       
       if(res.data==="Password changed successfully"){
             alert("password changed successfully")
-            //window.location.assign('http://10.150.121.200:8014/Welcome');
+            //<Redirect to="http://10.150.121.200:8014/Welcome"/>
+            window.location.replace('http://localhost:8014');
             }
           else if(res.data==="Please enter correct password"){
             alert("please enter correct password")
-              //this.props.history.push('/ChangePassword');
+            window.location.replace('http://localhost:8016/');
             }
            } )  
-
+        /* Axios.post('http://10.150.223.117:8015/api/change',userObject)
+           .then(
+              res=>{
+               console.log(res.data)
+             
+             if(res.data==="Password changed successfully"){
+                   alert("password changed successfully")
+                  
+                   window.location.replace('http://10.150.121.200:8014');
+                   }
+                 else if(res.data==="Please enter correct password"){
+                   alert("please enter correct password")
+                   window.location.replace(' http://172.27.212.193:8016/');
+                   }
+                  } ) */
+       
    let fields = {};
    fields["oldPassword"]="";
    fields["hpassword"] = "";
+   fields["confirmPassword"]="";
    this.setState({fields:fields});
   
     
   
-  //console.log("password changed successfully") 
-  //this.props.history.push('/');
   
  
   }
@@ -93,18 +108,18 @@ export default class ChangePassword extends Component {
   
     if (!fields["oldPassword"]) {
       formIsValid = false;
-      errors["oldPassword"] = "*This Field can not be empty";
+      errors["oldPassword"] = <font color="red">This Field can not be empty</font>;
     }
   
     if (!fields["hpassword"]) {
       formIsValid = false;
-      errors["hpassword"] = "*This Field can not be empty";
+      errors["hpassword"] = <font color="red">This Field can not be empty</font>;
     }
     
   
     if (!fields["confirmPassword"]) {
       formIsValid = false;
-      errors["confirmPassword"] = "*This Field can not be empty";
+      errors["confirmPassword"] = <font color="red">This Field can not be empty</font>;
     }
   
     
@@ -172,11 +187,11 @@ export default class ChangePassword extends Component {
             <br/>
             <br/>
            
-            <button  type="submit" onClick= {this.onSubmit} >Change Password</button> 
+            <button  type="submit"  id="change" onClick= {this.onSubmit} >Change Password</button> 
           
          
           <br/>
-          <button  onClick={this.clear} >Reset</button>
+          <button id="clear" onClick={this.clear} >Reset</button>
         </div>  
       </form>
       
