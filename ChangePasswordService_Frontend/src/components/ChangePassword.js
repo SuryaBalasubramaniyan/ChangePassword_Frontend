@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-   // import Form from 'react-bootstrap/Form'
-    //import Button from 'react-bootstrap/Button'
-    
+     
 import Axios from 'axios';
 import '../App.css';
-    //import {Container,Row,Col} from "react-bootstrap";
-  //  import Bootstrap from "react-bootstrap";
    
 export default class ChangePassword extends Component {
   constructor() {
@@ -40,7 +36,6 @@ export default class ChangePassword extends Component {
       }}
     
     if (this.validateForm())  {
- // console.log(`${userObject.userID} ${userObject.passwordHistory.oldpwd} ${userObject.passwordHistory.pwd1} `)
   
  Axios.post('http://localhost:8015/api/change',userObject)
     .then(
@@ -48,12 +43,13 @@ export default class ChangePassword extends Component {
         console.log(res.data)
       
       if(res.data==="Password changed successfully"){
-            alert("password changed successfully")
-            //<Redirect to="http://10.150.121.200:8014/Welcome"/>
+            
             window.location.replace('http://localhost:8014');
             }
           else if(res.data==="Please enter correct password"){
-            alert("please enter correct password")
+            
+            document.getElementById("showError").innerHTML="please enter correct password"
+            
             window.location.replace('http://localhost:8016/');
             }
            } )  
@@ -69,6 +65,7 @@ export default class ChangePassword extends Component {
                    }
                  else if(res.data==="Please enter correct password"){
                    alert("please enter correct password")
+                   <font size="3">Please enter correct password</font>
                    window.location.replace(' http://172.27.212.193:8016/');
                    }
                   } ) */
@@ -169,7 +166,7 @@ export default class ChangePassword extends Component {
         
       <div className="text-center">
         <h1 >Change Password</h1>
-
+        <span id="showError" ></span>
               <label>Old Password:</label>
               <input type="password" name="oldPassword" id="oldpwd" value={this.state.fields.oldPassword} ref="clearPwd" onChange={this.eventhandler} placeholder="Old Password" required></input>
               <div className="errorMsg">{this.state.errors.oldPassword}</div>
@@ -190,7 +187,7 @@ export default class ChangePassword extends Component {
             <button  type="submit"  id="change" onClick= {this.onSubmit} >Change Password</button> 
           
          
-          <br/>
+          
           <button id="clear" onClick={this.clear} >Reset</button>
         </div>  
       </form>

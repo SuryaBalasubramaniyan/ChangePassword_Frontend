@@ -1,0 +1,30 @@
+form
+{
+  width:100%;
+  
+  padding: 15px;
+  margin: auto;
+  height: 100%;
+  
+}
+button{
+background-color: blue; 
+border: none;
+color: white;
+padding: 10px 10px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 10px 20px;
+}
+body {background-color:gainsboro;}
+input{
+  padding: 5px;
+  margin: 5px;
+}
+label{
+  size: 500;
+  font-weight: 500;
+  font-size:  16px
+}
